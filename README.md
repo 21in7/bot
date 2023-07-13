@@ -15,3 +15,6 @@ pip install openpyxl
 ### contect
 mail : gihyeon@gihyeon.com
 discord : 21in7
+
+### API KEY
+각 서비스 api key를 따로 발급하셔야 합니다.
