@@ -17,6 +17,6 @@ mail : gihyeon@gihyeon.com
 discord : 21in7
 
 ### API KEY
-각 서비스 api key를 따로 발급하셔야 합니다.
+각 서비스 api key를 따로 발급하셔야 합니다.  
 파파고 api : https://developers.naver.com/apps  
 steam web api : https://steamcommunity.com/dev/apikey
