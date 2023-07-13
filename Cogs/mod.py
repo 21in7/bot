@@ -1,29 +1,32 @@
 import openpyxl
 import datetime
 from discord import File
-wb = openpyxl.load_workbook('/home/gihyeon/bot/challenge.xlsx')
-load_ws = wb['Sheet1']
+
+wb = openpyxl.load_workbook("/home/gihyeon/bot/challenge.xlsx")
+load_ws = wb["Sheet1"]
 
 
+# 오늘의 챌린지 맵
 def Today_challenge():
     d = datetime.datetime.now()
     str_now = str(d.strftime("%y-%m-%d\n"))
     if d.month % 2 == 0:
         col = 2
-        send_message = (str_now + (load_ws.cell(d.day, col).value))
+        send_message = str_now + (load_ws.cell(d.day, col).value)
         wb.close()
     else:
         col = 1
-        send_message = (str_now + (load_ws.cell(d.day, col).value))
+        send_message = str_now + (load_ws.cell(d.day, col).value)
         wb.close()
     return send_message
 
 
+# 오늘의 챌린지 맵 파일
 def Today_file():
     d = datetime.datetime.now()
     if d.month % 2 == 0:
         col = 2
-        file = File(f'/home/gihyeon/bot/{col}/{d.day}.jpg', filename="image.jpg")
+        file = File(f"/home/gihyeon/bot/{col}/{d.day}.jpg", filename="image.jpg")
         wb.close()
     else:
         col = 1
@@ -32,6 +35,7 @@ def Today_file():
     return file
 
 
+# 내일의 챌린지 맵
 def Tomorrow_challenge():
     d = datetime.datetime.now()
     tomorrow = d + datetime.timedelta(days=1)
@@ -39,27 +43,24 @@ def Tomorrow_challenge():
     str_tomorrow = str(tomorrow.strftime("%y-%m-%d\n"))
     if tomorrow.month % 2 == 0:
         col = 2
-        send_message = (
-            str_tomorrow + (load_ws.cell(strftime_tomorrow, col).value))
+        send_message = str_tomorrow + (load_ws.cell(strftime_tomorrow, col).value)
     else:
         col = 1
-        send_message = (
-            str_tomorrow + (load_ws.cell(strftime_tomorrow, col).value))
+        send_message = str_tomorrow + (load_ws.cell(strftime_tomorrow, col).value)
     return send_message
 
 
+# 내일의 챌린지 맵 파일
 def Tomorrow_file():
     d = datetime.datetime.now()
     tomorrow = d + datetime.timedelta(days=1)
     strftime_tomorrow = int(tomorrow.strftime("%d"))
     if tomorrow.month % 2 == 0:
         col = 2
-        file = File(
-            f"./{col}/{strftime_tomorrow}.jpg", filename="image.jpg")
+        file = File(f"./{col}/{strftime_tomorrow}.jpg", filename="image.jpg")
         wb.close()
     else:
         col = 1
-        file = File(
-            f"./{col}/{strftime_tomorrow}.jpg", filename="image.jpg")
+        file = File(f"./{col}/{strftime_tomorrow}.jpg", filename="image.jpg")
         wb.close()
     return file
