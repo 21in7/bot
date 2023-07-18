@@ -9,7 +9,7 @@ pip install discord.py
 pip install openpyxl
 ```
 ## command
-/menu, 동접자, 업데이트
+/menu, 동접자(글오세 버전은 북미, 남미, w서버 3개 통합 클라이언트라 통합 유저수 입니다.), 업데이트
 
 
 ### contect
