@@ -64,7 +64,7 @@ class challenge(commands.Cog):
 
         async def contact_callback(interaction: Interaction):
             await interaction.response.send_message(
-                "email : gihyeon@gihyeon.com\ndiscord : 21in7#0523"
+                "email : gihyeon@gihyeon.com\ndiscord : 21in7#0523\n트오세 문의 : cs.tos@imc.co.kr"
             )
 
         async def skill_common_callback(interaction: Interaction):
