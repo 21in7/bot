@@ -21,24 +21,26 @@ class challenge(commands.Cog):
         tomorrow_embed.set_image(url="attachment://image.jpg")
         tomorrow_embed.set_footer(text="루틴표 제공 : 한입할게요 \n맵 파일 제공 : 한입할게요 \n봇 문의 : 기현")
 
-        today = Button(label="오늘의 챌(Today Challenge)", style=ButtonStyle.green)
-        tomorrow = Button(label="내일의 챌(Tomorrow Challenge)", style=ButtonStyle.primary)
-        burning = Button(label="이달의 버닝(Burning of the Month)", style=ButtonStyle.danger)
-        tjdanf = Button(label="면류관(Relics)", style=ButtonStyle.gray)
+        today = Button(label="오늘의 챌(Today Challenge)", style=ButtonStyle.green, row=1)
+        tomorrow = Button(label="내일의 챌(Tomorrow Challenge)", style=ButtonStyle.primary, row=1)
+        burning = Button(label="이달의 버닝(Burning of the Month)", style=ButtonStyle.danger, row=2)
+        tjdanf = Button(label="면류관(Relics)", style=ButtonStyle.gray, row=2)
         # Season_relic = Button(label="시즌서버 면류관", style=ButtonStyle.blurple)
         tavern = Button(
             label="gihyeonofsoul",
             style=ButtonStyle.link,
             url="https://gihyeonofsoul.com",
+            row=3
         )
-        contact = Button(label="문의", style=ButtonStyle.blurple)
+        contact = Button(label="문의", style=ButtonStyle.blurple, row=5)
         common = Button(
             label="공통 용어(Common ToS Terms)",
             style=ButtonStyle.link,
             url="https://docs.google.com/document/d/1MFxTpvBSPzHhmjhiygjf-Ih-Nm7i99w3RQjxO0_9bns/edit",
+            row=4
         )
         skill_common = Button(
-            label="스킬 연성표(Enchant Skill Table)", style=ButtonStyle.secondary
+            label="스킬 연성표(Enchant Skill Table)", style=ButtonStyle.secondary, row=3
         )
 
         async def today_callback(interaction: Interaction):
@@ -79,7 +81,7 @@ class challenge(commands.Cog):
         # Season_relic.callback = Season_relic_callback
         contact.callback = contact_callback
         skill_common.callback = skill_common_callback
-        view = View(timeout=None)
+        view = View(timeout=120.0)
         view.add_item(today)
         view.add_item(tomorrow)
         view.add_item(burning)
