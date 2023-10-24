@@ -32,7 +32,7 @@ class challenge(commands.Cog):
             url="https://gihyeonofsoul.com",
             row=3
         )
-        contact = Button(label="문의", style=ButtonStyle.blurple, row=5)
+        contact = Button(label="문의", style=ButtonStyle.blurple, row=4)
         common = Button(
             label="공통 용어(Common ToS Terms)",
             style=ButtonStyle.link,
