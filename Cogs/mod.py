@@ -1,66 +1,46 @@
-import openpyxl
+import json
 import datetime
 from discord import File
 
-wb = openpyxl.load_workbook("/home/gihyeon/bot/challenge.xlsx")
-load_ws = wb["Sheet1"]
-
+# challenge.json 파일 로드
+with open("/home/ubuntu/bot/challenge.json", "r") as file:
+    challenge_data = json.load(file)
 
 # 오늘의 챌린지 맵
 def Today_challenge():
     d = datetime.datetime.now()
     str_now = str(d.strftime("%y-%m-%d\n"))
-    if d.month % 2 == 0:
-        col = 2
-        send_message = str_now + (load_ws.cell(d.day, col).value)
-        wb.close()
-    else:
-        col = 1
-        send_message = str_now + (load_ws.cell(d.day, col).value)
-        wb.close()
+    # 홀수달일 때는 'om', 짝수달일 때는 'em'에서 데이터를 가져옴
+    data_key = 'om' if d.month % 2 != 0 else 'em'
+    # 날짜에 맞는 id 찾기 (1부터 시작하므로 d.day를 그대로 사용)
+    challenge = challenge_data[data_key][d.day - 1]  # 리스트는 0부터 시작하므로 d.day - 1
+    challenge_name = challenge['name'].replace("\\n", "\n")
+    send_message = f"{str_now}{challenge_name}"
     return send_message
-
 
 # 오늘의 챌린지 맵 파일
 def Today_file():
     d = datetime.datetime.now()
-    if d.month % 2 == 0:
-        col = 2
-        file = File(f"/home/gihyeon/bot/{col}/{d.day}.jpg", filename="image.jpg")
-        wb.close()
-    else:
-        col = 1
-        file = File(f"/home/gihyeon/bot/{col}/{d.day}.jpg", filename="image.jpg")
-        wb.close()
+    data_key = 'om' if d.month % 2 != 0 else 'em'
+    challenge = challenge_data[data_key][d.day - 1]
+    file_path = f"./{data_key}/{challenge['image']}"  # 파일 경로 수정
+    file = File(file_path, filename="image.jpg")
     return file
-
 
 # 내일의 챌린지 맵
 def Tomorrow_challenge():
-    d = datetime.datetime.now()
-    tomorrow = d + datetime.timedelta(days=1)
-    strftime_tomorrow = int(tomorrow.strftime("%d"))
-    str_tomorrow = str(tomorrow.strftime("%y-%m-%d\n"))
-    if tomorrow.month % 2 == 0:
-        col = 2
-        send_message = str_tomorrow + (load_ws.cell(strftime_tomorrow, col).value)
-    else:
-        col = 1
-        send_message = str_tomorrow + (load_ws.cell(strftime_tomorrow, col).value)
+    d = datetime.datetime.now() + datetime.timedelta(days=1)
+    str_tomorrow = str(d.strftime("%y-%m-%d\n"))
+    data_key = 'om' if d.month % 2 != 0 else 'em'
+    challenge = challenge_data[data_key][d.day - 1]
+    send_message = f"{str_tomorrow}{challenge['name']}"
     return send_message
-
 
 # 내일의 챌린지 맵 파일
 def Tomorrow_file():
-    d = datetime.datetime.now()
-    tomorrow = d + datetime.timedelta(days=1)
-    strftime_tomorrow = int(tomorrow.strftime("%d"))
-    if tomorrow.month % 2 == 0:
-        col = 2
-        file = File(f"./{col}/{strftime_tomorrow}.jpg", filename="image.jpg")
-        wb.close()
-    else:
-        col = 1
-        file = File(f"./{col}/{strftime_tomorrow}.jpg", filename="image.jpg")
-        wb.close()
+    d = datetime.datetime.now() + datetime.timedelta(days=1)
+    data_key = 'om' if d.month % 2 != 0 else 'em'
+    challenge = challenge_data[data_key][d.day - 1]
+    file_path = f"./{data_key}/{challenge['image']}"
+    file = File(file_path, filename="image.jpg")
     return file

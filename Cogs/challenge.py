@@ -9,6 +9,15 @@ class challenge(commands.Cog):
     def __init__(self, bot: commands.Bot) -> None:
         self.bot = bot
 
+    @app_commands.command(name='shutdown', description='Shutdown Bot')
+    async def shutdown(self, interaction: Interaction):
+        if interaction.user.id != 247253360930062336:
+            await interaction.response.send_message("이 명령어는 봇 주인만 사용할 수 있습니다.", ephemeral=True)
+            return
+        
+        await interaction.response.send_message("봇을 종료합니다.", ephemeral=True)
+        await self.bot.close()
+
     @app_commands.command(name="menu", description="Main Menu")
     async def challage(self, interaction: Interaction) -> None:
         d = datetime.datetime.now()
@@ -44,21 +53,17 @@ class challenge(commands.Cog):
         )
 
         async def today_callback(interaction: Interaction):
-            await interaction.response.send_message(file=today_file, embed=today_embed)
+            await interaction.response.send_message(file=today_file, embed=today_embed, ephemeral=True)
 
         async def tommorow_callback(interaction: Interaction):
             await interaction.response.send_message(
-                file=tomorrow_file, embed=tomorrow_embed
+                file=tomorrow_file, embed=tomorrow_embed, ephemeral=True
             )
 
-        async def burning_callback(interaction: Interaction):
-            await interaction.response.send_message(
-                file=File(f"/home/gihyeon/bot/img/{str(d.month)}b.png")
-            )
 
         async def tjdanf_callback(interaction: Interaction):
             await interaction.response.send_message(
-                file=File("/home/gihyeon/bot/img/db28631695a79b9e.jpg")
+                file=File("/home/ubuntu/bot/img/db28631695a79b9e.jpg"), ephemeral=True
             )
 
         # async def Season_relic_callback(interaction: Interaction):
@@ -66,17 +71,16 @@ class challenge(commands.Cog):
 
         async def contact_callback(interaction: Interaction):
             await interaction.response.send_message(
-                "email : gihyeon@gihyeon.com\ndiscord : 21in7#0523\n트오세 문의 : cs.tos@imc.co.kr"
+                "email : gihyeon@gihyeon.com\ndiscord : 21in7#0523\n트오세 문의 : cs.tos@imc.co.kr", ephemeral=True
             )
 
         async def skill_common_callback(interaction: Interaction):
             await interaction.response.send_message(
-                file=File("/home/gihyeon/bot/img/skill.png")
+                file=File("/home/ubuntu/bot/img/skill.png"), ephemeral=True
             )
 
         today.callback = today_callback
         tomorrow.callback = tommorow_callback
-        burning.callback = burning_callback
         tjdanf.callback = tjdanf_callback
         # Season_relic.callback = Season_relic_callback
         contact.callback = contact_callback
@@ -84,7 +88,6 @@ class challenge(commands.Cog):
         view = View(timeout=120.0)
         view.add_item(today)
         view.add_item(tomorrow)
-        view.add_item(burning)
         view.add_item(tjdanf)
         view.add_item(tavern)
         # view.add_item(Season_relic)
@@ -92,7 +95,7 @@ class challenge(commands.Cog):
         view.add_item(common)
         view.add_item(skill_common)
         # view.add_item(update)
-        await interaction.response.send_message("Select menu", view=view)
+        await interaction.response.send_message("Select menu", view=view, ephemeral=True)
 
 
 async def setup(bot: commands.Bot) -> None:
