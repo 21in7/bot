@@ -38,9 +38,36 @@ class MyBot(commands.Bot):
             "Cogs.sheet",
             "Cogs.autoupdate",
             "Cogs.new_ingame",
+            "Cogs.AutoCM",
         ]
 
     async def setup_hook(self):
+        # add reload, load command
+        @self.tree.command(name="reload", description="Reload a cog")
+        async def reload(interaction: discord.Interaction, cog: str):
+            if not await self.is_owner(interaction.user):
+                await interaction.response.send_message("이 명령어는 봇 소유자만 사용할 수 있습니다.", ephemeral=True)
+                return
+            try:
+                await interaction.response.defer(ephemeral=True)
+                await self.reload_extension(f"Cogs.{cog}")
+                await interaction.followup.send(f"Cog {cog} reloaded successfully!", ephemeral=True)
+            except Exception as e:
+                await interaction.followup.send(f"Error reloading cog {cog}: {str(e)}", ephemeral=True)
+
+        @self.tree.command(name="load", description="Load a new cog")
+        async def load(interaction: discord.Interaction, cogs: str):
+            if not self.is_owner(interaction.user):
+                await interaction.response.send_message("이 명령어는 봇 소유자만 사용할 수 있습니다.", ephemeral=True)
+                return
+            try:
+                await interaction.response.defer(ephemeral=True)
+                await self.load_extension(f"Cogs.{cogs}")
+                await self.tree.sync()
+                await interaction.followup.send(f"Cog {cogs} loaded successfully!", ephemeral=True)
+            except Exception as e:
+                await interaction.followup.send(f"Error loading cog {cogs}: {str(e)}", ephemeral=True)
+
         for ext in self.initial_extension:
             await self.load_extension(ext)
         await self.tree.sync(guild=discord.Object(id=769953233070194698))
