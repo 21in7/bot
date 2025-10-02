@@ -36,9 +36,11 @@ class MyBot(commands.Bot):
         self.initial_extension = [
             "Cogs.challenge",
             "Cogs.sheet",
-            "Cogs.autoupdate",
             "Cogs.new_ingame",
             "Cogs.AutoCM",
+            "Cogs.autoupdate",
+            "Cogs.buffs",
+            "Cogs.items"
         ]
 
     async def setup_hook(self):

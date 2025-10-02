@@ -16,7 +16,7 @@ class AutoCM(commands.Cog):
     async def check_time(self):
         # 현재 시간을 가져옵니다.
         now = datetime.datetime.now()
-        print(f"현재 시간: {now.hour}:{now.minute}")  # 디버그 로그 추가
+        #print(f"현재 시간: {now.hour}:{now.minute}")  # 디버그 로그 추가
 
         today_embed = Embed(title="오늘의 챌린지", description=Today_challenge())
         today_file = Today_file()
